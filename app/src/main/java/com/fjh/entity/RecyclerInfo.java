@@ -5,33 +5,32 @@ package com.fjh.entity;
  */
 public class RecyclerInfo {
 
-//    private String text;
-//    private String picName;
-//
-//    public RecyclerInfo(String picName, String text) {
-//        this.picName = picName;
-//        this.text = text;
-//    }
-//
-//    public String getText() {
-//        return text;
-//    }
-//
-//    public void setText(String text) {
-//        this.text = text;
-//    }
-//
-//    public String getPicName() {
-//        return picName;
-//    }
-//
-//
-//
-//    public void setPicName(String picName) {
-//        this.picName = picName;
-//
-//    }
+    private String text;
+    private String picName;
 
-    public String[] text = {"item1", "item2", "item3", "item4"};
+    public RecyclerInfo(String picName, String text) {
+        this.picName = picName;
+        this.text = text;
+    }
+
+    public String getText() {
+        return text;
+    }
+
+    public void setText(String text) {
+        this.text = text;
+    }
+
+    public String getPicName() {
+        return picName;
+    }
+
+
+
+    public void setPicName(String picName) {
+        this.picName = picName;
+
+    }
+
 
 }

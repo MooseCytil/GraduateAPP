@@ -9,7 +9,6 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -30,12 +29,8 @@ public class MainActivity extends AppCompatActivity {
 
     private TabLayout tabLayout; //定义tablayout
     private ViewPager mViewPager; //定义viewpager
-    private List<Fragment> fragments; //fragment数组
-    private List<String> tabTitle; //tab的title
     private DrawerLayout mDrawerLayout;
     private NavigationView mNavigationView;
-    private RecyclerView mRecyclerView;
-    private Fragment1 fragment1;
 
 
     @Override
@@ -53,10 +48,11 @@ public class MainActivity extends AppCompatActivity {
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
 
-        tabLayout = (TabLayout) findViewById(R.id.tablayout);
         mViewPager = (ViewPager) findViewById(R.id.viewpager);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerlayout);
         mNavigationView = (NavigationView) findViewById(R.id.navigationview);
+
+        initViewPager();
 
 
         mNavigationView.setNavigationItemSelectedListener(
@@ -73,44 +69,15 @@ public class MainActivity extends AppCompatActivity {
                 }
         );
 
-        /*
-        设置tab的名字，放置为一个数组
-        */
-        tabTitle = new ArrayList<>();
-        tabTitle.add("首页");
-        tabTitle.add("预订");
-        tabTitle.add("商城");
-
-        /*
-        为tablayout添加tab的名称
-        */
-        tabLayout.addTab(tabLayout.newTab().setText(tabTitle.get(0)));
-        tabLayout.addTab(tabLayout.newTab().setText(tabTitle.get(1)));
-        tabLayout.addTab(tabLayout.newTab().setText(tabTitle.get(2)));
-
-        /*
-        添加viewpager与fragment
-        将fragment装进List数组中
-        */
-        fragments=new ArrayList<Fragment>();
-        fragments.add(new Fragment1());
-        fragments.add(new Fragment2());
-        fragments.add(new Fragment3());
-
-        String[] dataset = new String[100];
-        for (int i = 0; i < dataset.length; i++) {
-            dataset[i] = "item" + i;
-        }
-
-        //可以放进去 但格式不对
-        fragment1 = new Fragment1();
-        getSupportFragmentManager().beginTransaction().add(android.R.id.content, fragment1).commit();
-
-        //构造适配器
-        FragmentViewAdapter adapter = new FragmentViewAdapter(getSupportFragmentManager(), fragments, tabTitle);
-        mViewPager.setAdapter(adapter); //给viewpager设置适配器
-        tabLayout.setupWithViewPager(mViewPager); //将tablayout与viewpager关联
-        tabLayout.setTabsFromPagerAdapter(adapter); //给tabs设置适配器
+//
+//        String[] dataset = new String[100];
+//        for (int i = 0; i < dataset.length; i++) {
+//            dataset[i] = "item" + i;
+//        }
+//
+//        //可以放进去 但格式不对
+//        fragment1 = new Fragment1();
+//        getSupportFragmentManager().beginTransaction().add(android.R.id.content, fragment1).commit();
 
     }
 
@@ -128,5 +95,43 @@ public class MainActivity extends AppCompatActivity {
             return true;
         }
         return super.onOptionsItemSelected(item);
+    }
+
+    private void initViewPager(){
+
+        tabLayout = (TabLayout) findViewById(R.id.tablayout);
+        List<Fragment> fragments; //fragment数组
+        List<String> tabTitle; //tab的title
+
+        /*
+        设置tab的名字，放置为一个数组
+        */
+        tabTitle = new ArrayList<>();
+        tabTitle.add("首页");
+        tabTitle.add("预订");
+        tabTitle.add("商城");
+
+        /*
+        为tablayout添加tab的名称
+        */
+        for (int i = 0; i< tabTitle.size(); i++){
+            tabLayout.addTab(tabLayout.newTab().setText(tabTitle.get(i)));
+        }
+
+        /*
+        添加viewpager与fragment
+        将fragment装进List数组中
+        */
+        fragments=new ArrayList<Fragment>();
+        fragments.add(new Fragment1());
+        fragments.add(new Fragment2());
+        fragments.add(new Fragment3());
+
+        //构造适配器
+        FragmentViewAdapter adapter = new FragmentViewAdapter(getSupportFragmentManager(), fragments, tabTitle);
+        mViewPager.setAdapter(adapter); //给viewpager设置适配器
+        tabLayout.setupWithViewPager(mViewPager); //将tablayout与viewpager关联
+        tabLayout.setTabsFromPagerAdapter(adapter); //给tabs设置适配器
+
     }
 }

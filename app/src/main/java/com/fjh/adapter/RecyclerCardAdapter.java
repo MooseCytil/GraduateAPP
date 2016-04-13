@@ -1,6 +1,6 @@
 package com.fjh.adapter;
 
-import android.support.v7.widget.AppCompatTextView;
+import android.content.Context;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,28 +15,28 @@ import com.fjh.activity.R;
 //未使用fragment
 public class RecyclerCardAdapter extends RecyclerView.Adapter<RecyclerCardAdapter.MyViewHolder>{
 
-    public String[] mdata ;
+    private Context mContext;
 
-    public RecyclerCardAdapter (String[] data){
-        this.mdata = data;
+    public RecyclerCardAdapter (Context Context){
+        this.mContext = Context;
     }
 
 
     /**
      * 负责为item创建视图
-     * @param viewgroup
-     * @param i
+     * @param parent
+     * @param viewType
      * @return
      */
     @Override
-    public MyViewHolder onCreateViewHolder(ViewGroup viewgroup, int i) {
-        View v = LayoutInflater.from(viewgroup.getContext()).inflate(R.layout.item_cardview, viewgroup, false);
+    public MyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        View v = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_cardview, parent, false);
         return new MyViewHolder(v);
     }
 
     @Override
     public int getItemCount() {
-        return mdata.length;
+        return 10;
     }
 
     /**
@@ -46,17 +46,22 @@ public class RecyclerCardAdapter extends RecyclerView.Adapter<RecyclerCardAdapte
      */
     @Override
     public void onBindViewHolder(MyViewHolder holder, int position) {
-        holder.textView.setText(mdata[position]);
+
     }
+
 
 
     public static class MyViewHolder extends RecyclerView.ViewHolder{
 //        public ImageView imageView;
-        public AppCompatTextView textView;
+//        public AppCompatTextView textView;
+
+        public final View mView;
 
         public MyViewHolder (View itemview){
             super(itemview);
-            textView = (AppCompatTextView) itemview.findViewById(R.id.cardtext);
+            mView = itemview;
         }
+
+
     }
 }

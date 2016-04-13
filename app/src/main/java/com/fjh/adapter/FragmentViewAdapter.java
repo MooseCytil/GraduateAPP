@@ -13,7 +13,7 @@ public class FragmentViewAdapter extends FragmentPagerAdapter {
     private List<Fragment> mFragments; //fragment数组
     private List<String> mTitle; //tab名称数组
 
-//    从构造函数所以看出，我们要构造Fragment的集合，所以我们先产生我们所需要的Fragment类
+//  从构造函数所以看出，我们要构造Fragment的集合，所以我们先产生我们所需要的Fragment类
 
     /*
     对于构造函数，这里申请了一个Fragment的List对象，用于保存用于滑动的Fragment对象，并在创造函数中初始化
@@ -45,6 +45,6 @@ public class FragmentViewAdapter extends FragmentPagerAdapter {
      */
     @Override
     public CharSequence getPageTitle(int position) {
-        return mTitle.get(position % mTitle.size());
+        return mTitle.get(position);
     }
 }

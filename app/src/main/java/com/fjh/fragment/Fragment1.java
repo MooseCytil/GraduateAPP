@@ -19,7 +19,6 @@ public class Fragment1 extends Fragment {
 
     private RecyclerView mRecyclerView;
     private RecyclerCardAdapter mRecyclerCardAdapter;
-    private LinearLayoutManager mLinearLayoutManager;
 
 
     /*
@@ -27,23 +26,17 @@ public class Fragment1 extends Fragment {
      */
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View fg1 = inflater.inflate(R.layout.fragment_1, container, false); //此方法将XML文件实例化为View类对象
-        mRecyclerView = (RecyclerView)fg1.findViewById(R.id.recycler);
-        return fg1;
+        //此方法将XML文件实例化为View类对象
+        mRecyclerView = (RecyclerView) inflater.inflate(R.layout.fragment_1, container, false);
+        return mRecyclerView;
     }
 
     @Override
     public void onActivityCreated(Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        String[] dataset = new String[100];
-        for (int i = 0; i < dataset.length; i++) {
-            dataset[i] = "item" + i;
-        }
-        mRecyclerCardAdapter = new RecyclerCardAdapter(dataset);
-        mLinearLayoutManager = new LinearLayoutManager(getActivity());
-        mRecyclerView.setAdapter(mRecyclerCardAdapter);
-        mRecyclerView.setLayoutManager(mLinearLayoutManager);
+        mRecyclerView.setLayoutManager(new LinearLayoutManager(mRecyclerView.getContext()));
+        mRecyclerView.setAdapter(new RecyclerCardAdapter(getActivity()));
         mRecyclerView.setItemAnimator(new DefaultItemAnimator());
     }
 
