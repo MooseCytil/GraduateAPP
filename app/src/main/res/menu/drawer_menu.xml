@@ -1,40 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <group >
-        <item
-            android:checkable="true"
-            android:id="@+id/nav_home"
-            android:icon="@drawable/abc_btn_radio_to_on_mtrl_000"
-            android:title="Home"/>
-        <item
-            android:checkable="true"
-            android:id="@+id/nav_messages"
-            android:icon="@drawable/abc_btn_radio_to_on_mtrl_000"
-            android:title="Messages"/>
-        <item
-            android:checkable="true"
-            android:id="@+id/nav_friends"
-            android:icon="@drawable/abc_btn_radio_to_on_mtrl_000"
-            android:title="Friends"/>
-        <item
-            android:checkable="true"
-            android:id="@+id/nav_discussion"
-            android:icon="@drawable/abc_btn_radio_to_on_mtrl_000"
-            android:title="Discussion"/>
-    </group>
-
-    <item android:title="Sub items">
-        <menu>
-            <item
-                android:checkable="true"
-                android:icon="@drawable/abc_btn_radio_to_on_mtrl_000"
-                android:title="Sub item 1"/>
-            <item
-                android:checkable="true"
-                android:icon="@drawable/abc_btn_radio_to_on_mtrl_000"
-                android:title="Sub item 2"/>
-        </menu>
-    </item>
+    <item
+        android:checkable="true"
+        android:id="@+id/nav_order"
+        android:icon="@drawable/list_24"
+        android:title="历史订单"/>
+    <item
+        android:checkable="true"
+        android:id="@+id/nav_evaluate"
+        android:icon="@drawable/rating_24"
+        android:title="对我们的评价"/>
+    <item
+        android:checkable="true"
+        android:id="@+id/nav_setting"
+        android:icon="@drawable/settings_24"
+        android:title="设置"/>
+    <item
+        android:checkable="true"
+        android:id="@+id/nav_more"
+        android:title="更多"
+        android:icon="@drawable/more_24" />
 
 </menu>

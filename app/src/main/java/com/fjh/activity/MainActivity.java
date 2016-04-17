@@ -1,5 +1,6 @@
 package com.fjh.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
@@ -10,13 +11,14 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.ImageView;
 
-import com.fjh.adapter.FragmentViewAdapter;
-import com.fjh.fragment.Fragment1;
-import com.fjh.fragment.Fragment2;
-import com.fjh.fragment.Fragment3;
+import com.fjh.fragment.BookingFragment;
+import com.fjh.fragment.MallFragment;
+import com.fjh.fragment.HomeFragment;
+import com.fjh.util.adapter.FragmentViewAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
     private ViewPager mViewPager; //定义viewpager
     private DrawerLayout mDrawerLayout;
     private NavigationView mNavigationView;
+    private ImageView image;
 
 
     @Override
@@ -41,23 +44,22 @@ public class MainActivity extends AppCompatActivity {
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+        getSupportActionBar().setDisplayShowTitleEnabled(false);//隐藏title
         final ActionBar actionBar = getSupportActionBar();
+
+
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerlayout);
+        mNavigationView = (NavigationView) findViewById(R.id.navigationview);
 
         if (actionBar != null) {
             actionBar.setHomeAsUpIndicator(R.drawable.menu_28);
             actionBar.setDisplayHomeAsUpEnabled(true);
         }
 
-        mViewPager = (ViewPager) findViewById(R.id.viewpager);
-        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerlayout);
-        mNavigationView = (NavigationView) findViewById(R.id.navigationview);
-
-        initViewPager();
-
-
         mNavigationView.setNavigationItemSelectedListener(
                 new NavigationView.OnNavigationItemSelectedListener() {
                     private MenuItem mMenuItem;
+
                     @Override
                     public boolean onNavigationItemSelected(MenuItem menuItem) {
                         if (mMenuItem != null) mMenuItem.setChecked(false);
@@ -69,23 +71,26 @@ public class MainActivity extends AppCompatActivity {
                 }
         );
 
-//
-//        String[] dataset = new String[100];
-//        for (int i = 0; i < dataset.length; i++) {
-//            dataset[i] = "item" + i;
-//        }
-//
-//        //可以放进去 但格式不对
-//        fragment1 = new Fragment1();
-//        getSupportFragmentManager().beginTransaction().add(android.R.id.content, fragment1).commit();
+        mViewPager = (ViewPager) findViewById(R.id.viewpager);
 
+        initViewPager();
+
+        image = (ImageView) findViewById(R.id.image);
+        image.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, LoginActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu){
-        getMenuInflater().inflate(R.menu.drawer_menu, menu);
-        return true;
-    }
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu){
+//        getMenuInflater().inflate(R.menu.drawer_menu, menu);
+//        return true;
+//    }
+//
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -123,9 +128,9 @@ public class MainActivity extends AppCompatActivity {
         将fragment装进List数组中
         */
         fragments=new ArrayList<Fragment>();
-        fragments.add(new Fragment1());
-        fragments.add(new Fragment2());
-        fragments.add(new Fragment3());
+        fragments.add(new HomeFragment());
+        fragments.add(new BookingFragment());
+        fragments.add(new MallFragment());
 
         //构造适配器
         FragmentViewAdapter adapter = new FragmentViewAdapter(getSupportFragmentManager(), fragments, tabTitle);
