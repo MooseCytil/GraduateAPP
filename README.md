@@ -6,5 +6,6 @@
 实现了toolbar的头部layout，实现了tablayout以及viewpager。
 ### V0.0.2
 首页不使用viewpager，使用recycler实现首页，其它功能放入drawer中。
-
+### v0.0.3
+每一个view都使用toolbar，toolbar有返回功能。消除输入文本时，软键盘会挡住控件的bug。
 
