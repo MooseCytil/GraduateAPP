@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:divider="@drawable/minus_10"
+    android:showDividers="middle">
+
+    <ImageView
+        android:id="@+id/image_system"
+        android:layout_width="match_parent"
+        android:layout_height="250dp"
+        android:background="@drawable/e" />
+
+    <android.support.v7.widget.AppCompatTextView
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:paddingTop="5dp"
+        android:text="系统介绍"
+        android:textSize="50dp"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:id="@+id/ll"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingTop="5dp">
+
+            <android.support.v7.widget.AppCompatTextView
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:text="对我们的评价："
+                android:textSize="17dp"
+                android:paddingTop="13dp"
+                android:paddingLeft="8dp"/>
+
+            <android.support.v7.widget.AppCompatRatingBar
+                android:layout_width="wrap_content"
+                android:layout_height="50dp" />
+        </LinearLayout>
+
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/more_button"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/ll"
+            android:layout_centerHorizontal="true"
+            android:text="提交"
+            android:paddingTop="10dp"/>
+
+    </RelativeLayout>
+
+
+
+</LinearLayout>

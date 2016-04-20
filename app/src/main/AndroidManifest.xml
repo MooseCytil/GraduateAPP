@@ -10,17 +10,22 @@
         android:theme="@style/AppTheme">
         <activity
             android:name=".MainActivity"
-            android:theme="@style/AppTheme">
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="adjustResize">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
-        <!--<activity android:name=".DrawMeunActivity" />-->
-        <activity android:name=".LoginActivity" />
-        <activity android:name=".RegisterActivity"/>
+        <activity android:name=".LoginActivity" android:windowSoftInputMode="adjustResize"/>
+        <activity android:name=".RegisterActivity" android:windowSoftInputMode="adjustResize" />
+        <activity android:name=".DrawerMoreActivity" />
+        <activity android:name=".DrawerReservedActivity" />
+        <activity android:name=".DrawerHistoryActivity" />
+        <activity android:name=".DrawerSettingActivity" />
+        <activity android:name=".BookingActivity" />
+        <!--<activity android:name=".DateTimeActivity" />-->
 
         <!--
              ATTENTION: This was auto-generated to add Google Play services to your project for

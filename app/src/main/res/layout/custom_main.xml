@@ -9,12 +9,50 @@
 
     <include layout="@layout/toolbar_layout" />
 
-    <!--向上滑动时，显示fragment，behavior设置viewpager显示在appbar下方-->
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/recyclerView_home"
+    <!--behavior设置显示在appbar下方-->
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
+        <!-- 切换卡 -->
+        <android.support.v4.view.ViewPager
+            android:id="@+id/viewpager_main"
+            android:layout_width="match_parent"
+            android:layout_height="520dp">
+        </android.support.v4.view.ViewPager>
+
+        <!-- 小圆点指示器区域，标记现在滑到哪张图片 -->
+        <LinearLayout
+            android:id="@+id/linear_main"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom"
+            android:layout_marginBottom="10dp"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal" >
+
+        </LinearLayout>
+
+        <include layout="@layout/main_booking_layout"
+            android:layout_width="350dp"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal|center_vertical"/>
+    </FrameLayout>
+
+    <!--向上滑动时，收起toolbar，behavior设置显示在appbar下方-->
+    <!--<android.support.v7.widget.RecyclerView-->
+        <!--android:id="@+id/recyclerView_home"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--app:layout_behavior="@string/appbar_scrolling_view_behavior"/>-->
+
+    <!--<android.support.design.widget.FloatingActionButton-->
+        <!--android:id="@+id/fButton_booking"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_gravity="bottom|right"-->
+        <!--android:src="@drawable/search_40"-->
+        <!--app:fabSize="normal"/>-->
 
 </android.support.design.widget.CoordinatorLayout>

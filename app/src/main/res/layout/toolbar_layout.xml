@@ -22,13 +22,15 @@
                 toolbar:navigationIcon="@drawable/menu_28"
                 toolbar:popupTheme="@style/AppTheme.PopupOverlay">
                 <android.support.v7.widget.AppCompatTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:id="@+id/text_title"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:text="FJH AND XQ"
                     android:layout_marginTop="15dp"
                     android:layout_gravity="center"
                     android:textSize="20dp"
-                    android:textColor="#FFFFFF"/>
+                    android:textColor="#FFFFFF"
+                    android:clickable="true"/>
             </android.support.v7.widget.Toolbar>
         </RelativeLayout>
 

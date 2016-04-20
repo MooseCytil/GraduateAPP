@@ -1,25 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item
-        android:checkable="true"
-        android:id="@+id/nav_order"
-        android:icon="@drawable/list_24"
-        android:title="历史订单"/>
-    <item
-        android:checkable="true"
-        android:id="@+id/nav_evaluate"
-        android:icon="@drawable/rating_24"
-        android:title="对我们的评价"/>
-    <item
-        android:checkable="true"
-        android:id="@+id/nav_setting"
-        android:icon="@drawable/settings_24"
-        android:title="设置"/>
-    <item
-        android:checkable="true"
-        android:id="@+id/nav_more"
-        android:title="更多"
-        android:icon="@drawable/more_24" />
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_reserved"
+            android:icon="@drawable/suitcase_24"
+            android:title="即将开始的旅程"/>
+        <item
+            android:id="@+id/nav_history"
+            android:icon="@drawable/list_24"
+            android:title="历史订单"/>
+        <item
+            android:id="@+id/nav_setting"
+            android:icon="@drawable/settings_24"
+            android:title="设置"/>
+        <item
+            android:id="@+id/nav_more"
+            android:title="更多"
+            android:icon="@drawable/more_24" />
+    </group>
+
 
 </menu>

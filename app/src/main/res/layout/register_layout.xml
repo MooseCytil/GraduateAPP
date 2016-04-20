@@ -2,17 +2,25 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/a">
+    android:background="#b2dfdb"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
 
-    <android.support.v7.widget.AppCompatTextView
-        android:id="@+id/text1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="FJH and XQ"
-        android:textColor="@color/cardBackgroundColor"
-        android:textSize="50dp"
-        android:layout_marginTop="50dp"
-        android:layout_centerHorizontal="true"/>
+    <include layout="@layout/toolbar_layout"
+        android:id="@+id/toolbar_register"/>
+
+    <!--<android.support.v7.widget.AppCompatTextView-->
+        <!--android:id="@+id/text1"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:text="FJH and XQ"-->
+        <!--android:textColor="@color/cardBackgroundColor"-->
+        <!--android:textSize="50dp"-->
+        <!--android:layout_marginTop="70dp"-->
+        <!--android:layout_centerHorizontal="true"/>-->
+
+
+
 
     <android.support.v7.widget.AppCompatTextView
         android:id="@+id/text_login"
@@ -21,8 +29,7 @@
         android:clickable="true"
         android:text="立即登录"
         android:textSize="20dp"
-        android:layout_below="@id/text1"
-        android:layout_marginTop="50dp"
+        android:layout_above="@id/linear1"
         android:layout_alignRight="@id/linear1"/>
 
     <LinearLayout
@@ -30,9 +37,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_below="@id/text_login"
-        android:layout_centerHorizontal="true"
-        android:background="#ff33cc">
+        android:layout_centerInParent="true"
+        android:background="#ba68c8">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -124,7 +130,7 @@
         </LinearLayout>
 
         <android.support.v7.widget.AppCompatButton
-            android:id="@+id/button1"
+            android:id="@+id/button_register"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="注册" />

@@ -1,19 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_height="match_parent"
+    android:background="#b2dfdb"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+    <include layout="@layout/toolbar_layout"/>
 
-    <android.support.v7.widget.AppCompatTextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="FJH and XQ"
-        android:textSize="50dp"
-        android:layout_marginTop="100dp"
-        android:layout_centerHorizontal="true"/>
+
+        <!--<android.support.v7.widget.AppCompatTextView-->
+            <!--android:id="@+id/text_app"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:text="FJH and XQ"-->
+            <!--android:textSize="50dp"-->
+            <!--android:layout_marginTop="90dp"-->
+            <!--android:layout_centerHorizontal="true"/>-->
 
     <LinearLayout
         android:id="@+id/linear1"
@@ -67,7 +70,7 @@
         </LinearLayout>
 
         <android.support.v7.widget.AppCompatButton
-            android:id="@+id/button1"
+            android:id="@+id/button_login"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:text="登录" />
@@ -75,13 +78,14 @@
     </LinearLayout>
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fButton1"
+        android:id="@+id/fButton_register"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_below="@id/linear1"
         android:src="@drawable/adduser_48"/>
 
     <android.support.v7.widget.AppCompatTextView
-        android:id="@+id/te1"
+        android:id="@+id/text_pwd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="忘记密码？"
@@ -92,3 +96,6 @@
         android:clickable="true"/>
 
 </RelativeLayout>
+
+
+
