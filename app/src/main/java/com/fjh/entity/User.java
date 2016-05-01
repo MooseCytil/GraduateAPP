@@ -1,52 +1,62 @@
 package com.fjh.entity;
 
 /**
- * Created by fjh on 2016/4/16.
+ * Created by fjh on 2016/4/30.
  */
 public class User {
-    private int id;
-    private String username;
-    private String pwd;
-    private String email;
-    private String phone;
 
-    public int getId() {
-        return id;
+    private int userId;
+    private String userName;
+    private String userPwd;
+    private String userEmail;
+    private String userPhone;
+
+    public User(int userId, String userName, String userPwd, String userEmail, String userPhone) {
+        this.userId = userId;
+        this.userName = userName;
+        this.userPwd = userPwd;
+        this.userEmail = userEmail;
+        this.userPhone = userPhone;
     }
 
-    public void setId(int id) {
-        this.id = id;
+    public int getUserId() {
+        return userId;
     }
 
-    public String getUsername() {
-        return username;
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public String getUserName() {
+        return userName;
     }
 
-    public String getPwd() {
-        return pwd;
+    public void setUserName(String userName) {
+        this.userName = userName;
     }
 
-    public void setPwd(String pwd) {
-        this.pwd = pwd;
+    public String getUserPwd() {
+        return userPwd;
     }
 
-    public String getEmail() {
-        return email;
+    public void setUserPwd(String userPwd) {
+        this.userPwd = userPwd;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
+    public String getUserEmail() {
+        return userEmail;
     }
 
-    public String getPhone() {
-        return phone;
+    public void setUserEmail(String userEmail) {
+        this.userEmail = userEmail;
     }
 
-    public void setPhone(String phone) {
-        this.phone = phone;
+    public String getUserPhone() {
+        return userPhone;
     }
+
+    public void setUserPhone(String userPhone) {
+        this.userPhone = userPhone;
+    }
+
 }

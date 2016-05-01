@@ -10,10 +10,10 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.AppCompatEditText;
-import android.support.v7.widget.SearchView;
+import android.support.v7.widget.AppCompatButton;
+import android.support.v7.widget.AppCompatTextView;
+import android.support.v7.widget.CardView;
 import android.support.v7.widget.Toolbar;
-import android.text.InputType;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,19 +30,24 @@ import java.util.Calendar;
 
 public class MainActivity extends AppCompatActivity {
 
-//    private TabLayout tabLayout; //定义tablayout
-    private ViewPager mViewPager; //定义viewpager
-    private DrawerLayout mDrawerLayout;
-    private NavigationView mNavigationView;
-    private AppCompatEditText editTextCheckIn;
-    private AppCompatEditText editTextCheckOut;
-    private SearchView search;
+    static final int user_request_code = 1; //请求码，请求login.activity发送登录的用户信息回来。
+
+    private ViewPager mViewPager; //主页viewpager
+    private DrawerLayout mDrawerLayout; //主页drawerlayout
+    private NavigationView mNavigationView; //主页navigationview
+    private AppCompatTextView locationTextView; //主页“位置”文本框
+    private LinearLayout locationLinearLayout;  //主页“定位”按钮的布局
+    private CardView cardCheckin;  //主页入住日期
+    private CardView cardCheckout;  //主页退房日期
+    private AppCompatTextView textCheckin; //显示入住日期
+    private AppCompatTextView textCheckout; //显示退房日期
+    private AppCompatButton buttonSearch;  //主页搜索按钮
+    private AppCompatTextView drawer_text_username; //侧滑菜单的用户信息
     private Calendar calendar; //通过Calendar获取系统时间
-    private ImageView image;
+    private ImageView image; //drawerlayout的头像按钮
     private ImageView[] tips; //装圆点的ImageView数组
     private ImageView[] mImageViews; //图片数组
     private int[] src = new int[]{R.drawable.a, R.drawable.b, R.drawable.c, R.drawable.d, R.drawable.e};
-
 
 
     @Override
@@ -52,24 +57,28 @@ public class MainActivity extends AppCompatActivity {
 
         final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
-        getSupportActionBar().setDisplayShowTitleEnabled(false); //隐藏title
         final ActionBar actionBar = getSupportActionBar();
-        calendar = Calendar.getInstance(); // 获取日历对象
 
+        mViewPager = (ViewPager) findViewById(R.id.viewpager_main);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawerlayout);
         mNavigationView = (NavigationView) findViewById(R.id.navigationview);
-        editTextCheckIn = (AppCompatEditText) findViewById(R.id.edit_checkin);
-        editTextCheckOut = (AppCompatEditText) findViewById(R.id.edit_checkout);
-        search = (SearchView)findViewById(R.id.main_search);
-//        mRecyclerView = (RecyclerView) findViewById(R.id.recyclerView_home);
+        image = (ImageView) findViewById(R.id.drawer_image_login);
+        cardCheckin = (CardView) findViewById(R.id.card_checkin);
+        cardCheckout = (CardView) findViewById(R.id.card_checkout);
+        locationTextView = (AppCompatTextView) findViewById(R.id.main_location_text);
+        locationLinearLayout = (LinearLayout) findViewById(R.id.main_location_linear);
+        buttonSearch = (AppCompatButton) findViewById(R.id.button_search);
+        textCheckin = (AppCompatTextView) findViewById(R.id.text_checkin);
+        textCheckout = (AppCompatTextView) findViewById(R.id.text_checkout);
+        drawer_text_username = (AppCompatTextView) findViewById(R.id.drawer_text_username);
+
+        calendar = Calendar.getInstance(); // 获取日历对象
 
         //设置导航栏按钮
         if (actionBar != null) {
             actionBar.setHomeAsUpIndicator(R.drawable.menu_28);
             actionBar.setDisplayHomeAsUpEnabled(true); // 给左上角图标的左边加上一个返回的图标
         }
-
-        search.setQueryHint("请输入您的目的地");
 
         /*
         setNavigationItemSelectedListener设置当导航项被点击时的回调。
@@ -81,8 +90,7 @@ public class MainActivity extends AppCompatActivity {
 
                     @Override
                     public boolean onNavigationItemSelected(MenuItem menuItem) {
-                        switch (menuItem.getItemId())
-                        {
+                        switch (menuItem.getItemId()) {
                             case R.id.nav_reserved:
                                 Intent intent1 = new Intent(MainActivity.this, BookingActivity.class);
                                 startActivity(intent1);
@@ -111,17 +119,78 @@ public class MainActivity extends AppCompatActivity {
                 }
         );
 
-        image = (ImageView) findViewById(R.id.drawer_image_login);
+        //启动login.activity,登录后返回登陆信息
         image.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, LoginActivity.class);
-                startActivity(intent);
+                startActivityForResult(intent, user_request_code);
             }
         });
 
-        //设置viewpager的main
-        mViewPager = (ViewPager) findViewById(R.id.viewpager_main);
+        final int mYear, mMonth, mDay, mOutDay;
+        mYear = calendar.get(Calendar.YEAR);
+        mMonth = calendar.get(Calendar.MONTH) + 1;
+        mDay = calendar.get(Calendar.DAY_OF_MONTH);
+        mOutDay = calendar.get(Calendar.DAY_OF_MONTH) + 1;
+
+        textCheckin.setText(mYear + "年" + mMonth + "月" + mDay + "日");
+        textCheckout.setText(mYear + "年" + mMonth + "月" + mOutDay + "日");
+
+//        cardCheckin.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+//            @Override
+//            public void onFocusChange(View v, boolean hasFocus) {
+//                if (hasFocus) {
+//                    new DatePickerDialog(MainActivity.this, new DatePickerDialog.OnDateSetListener() {
+//                        @Override
+//                        public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+//                            textCheckin.setText(year + "年" + monthOfYear + "月" + dayOfMonth + "日");
+//                        }
+//                    }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show();
+//                }
+//            }
+//        });
+        cardCheckin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new DatePickerDialog(MainActivity.this, new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                        int mMonthofYear = monthOfYear + 1;
+                        textCheckin.setText(year + "年" + mMonthofYear + "月" + dayOfMonth + "日");
+                    }
+                }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show();
+            }
+        });
+
+
+//        cardCheckout.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+//            @Override
+//            public void onFocusChange(View v, boolean hasFocus) {
+//                if (hasFocus) {
+//                    new DatePickerDialog(MainActivity.this, new DatePickerDialog.OnDateSetListener() {
+//                        @Override
+//                        public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+//                            textCheckout.setText(year + "年" + monthOfYear + "月" + dayOfMonth + "日");
+//                        }
+//                    }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show();
+//                }
+//            }
+//        });
+        cardCheckout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                new DatePickerDialog(MainActivity.this, new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                        int mMonthofYear = monthOfYear + 1;
+                        textCheckout.setText(year + "年" + mMonthofYear + "月" + dayOfMonth + "日");
+                    }
+                }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show();
+            }
+        });
+
+
         initImage();
         initTips();
 
@@ -152,62 +221,6 @@ public class MainActivity extends AppCompatActivity {
 //        mRecyclerView.setAdapter(new RecyclerCardAdapter(getApplicationContext()));
 //        mRecyclerView.setItemAnimator(new DefaultItemAnimator());
 
-        editTextCheckIn = (AppCompatEditText) findViewById(R.id.edit_checkin);
-        editTextCheckOut = (AppCompatEditText) findViewById(R.id.edit_checkout);
-        editTextCheckIn.setInputType(InputType.TYPE_NULL);
-        editTextCheckOut.setInputType(InputType.TYPE_NULL);
-
-        editTextCheckIn.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus) {
-                    new DatePickerDialog(MainActivity.this, new DatePickerDialog.OnDateSetListener() {
-                        @Override
-                        public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                            editTextCheckIn.setText(year + "年" + monthOfYear + "月" + dayOfMonth + "日");
-                        }
-                    }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show();
-                }
-            }
-        });
-        editTextCheckIn.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                new DatePickerDialog(MainActivity.this, new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                        editTextCheckIn.setText(year + "年" + monthOfYear + "月" + dayOfMonth + "日");
-                    }
-                }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show();
-            }
-        });
-
-        editTextCheckOut.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus) {
-                    new DatePickerDialog(MainActivity.this, new DatePickerDialog.OnDateSetListener() {
-                        @Override
-                        public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                            editTextCheckOut.setText(year + "年" + monthOfYear + "月" + dayOfMonth + "日");
-                        }
-                    }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show();
-                }
-            }
-        });
-        editTextCheckOut.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                new DatePickerDialog(MainActivity.this, new DatePickerDialog.OnDateSetListener() {
-                    @Override
-                    public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
-                        editTextCheckOut.setText(year + "年" + monthOfYear + "月" + dayOfMonth + "日");
-                    }
-                }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show();
-            }
-        });
-
-
     }
 
     /**
@@ -215,8 +228,7 @@ public class MainActivity extends AppCompatActivity {
      */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        if (item.getItemId() == android.R.id.home)
-        {
+        if (item.getItemId() == android.R.id.home) {
             mDrawerLayout.openDrawer(GravityCompat.START);
             return true;
         }
@@ -224,15 +236,39 @@ public class MainActivity extends AppCompatActivity {
     }
 
     /**
+     * 启动login.activity，并且返回登录用户的结果
+     *
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if(requestCode == user_request_code)
+        {
+            switch (resultCode)
+            {
+                case LoginActivity.user_result_code:
+                    String username = data.getExtras().getString("username");
+                    drawer_text_username.setText(username);
+                    break;
+                default:
+                    break;
+            }
+        }
+
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    /**
      * 初始化viewpager数据
      */
-    private void initImage(){
+    private void initImage() {
 
         //图片资源，viewpager的图片展示
         mImageViews = new ImageView[src.length];
         //将数据循环输入数组中
-        for (int i = 0; i < src.length; i ++)
-        {
+        for (int i = 0; i < src.length; i++) {
             ImageView image = new ImageView(getApplicationContext());
             mImageViews[i] = image;
             image.setBackgroundResource(src[i]);
@@ -241,20 +277,19 @@ public class MainActivity extends AppCompatActivity {
     }
 
     //初始化圆点
-    private void initTips(){
+    private void initTips() {
         ViewGroup viewGroup = (ViewGroup) findViewById(R.id.linear_main);
 
         //将圆点加入到ViewGroup中,有多少张图就有多少个圆点
         tips = new ImageView[src.length];
-        for (int i = 0; i < tips.length; i ++)
-        {
+        for (int i = 0; i < tips.length; i++) {
             ImageView imageView = new ImageView(this); //实例化一个点
-            imageView.setLayoutParams(new ViewGroup.LayoutParams(2,2)); //第一个参数为宽，第二个参数为高
+            imageView.setLayoutParams(new ViewGroup.LayoutParams(2, 2)); //第一个参数为宽，第二个参数为高
             tips[i] = imageView;
 //          获取选中和未选中的图标
-            if(i == 0){
+            if (i == 0) {
                 tips[i].setBackgroundResource(R.drawable.finalstate_10); //选中
-            }else{
+            } else {
                 tips[i].setBackgroundResource(R.drawable.activestate_10);  //未选中
             }
             LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(new ViewGroup.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
@@ -267,20 +302,19 @@ public class MainActivity extends AppCompatActivity {
 
     /**
      * 设置选中的tip的背景
+     *
      * @param selectItems
      */
-    private void setTipBackground(int selectItems){
-        for(int i = 0; i < tips.length; i ++){
-            if(i == selectItems)
-            {
+    private void setTipBackground(int selectItems) {
+        for (int i = 0; i < tips.length; i++) {
+            if (i == selectItems) {
                 tips[i].setBackgroundResource(R.drawable.finalstate_10);
-            }
-            else
-            {
+            } else {
                 tips[i].setBackgroundResource(R.drawable.activestate_10);
             }
         }
     }
+
 
     //内部类适配器
     public class MainViewAdapter extends PagerAdapter {
@@ -300,14 +334,15 @@ public class MainActivity extends AppCompatActivity {
          */
         @Override
         public Object instantiateItem(ViewGroup container, int position) {
-            ((ViewPager)container).addView(mImageViews[position % mImageViews.length], 0);
+            ((ViewPager) container).addView(mImageViews[position % mImageViews.length], 0);
             return mImageViews[position % mImageViews.length];
         }
 
         @Override
         public void destroyItem(ViewGroup container, int position, Object object) {
-            ((ViewPager)container).removeView(mImageViews[position % mImageViews.length]);
+            ((ViewPager) container).removeView(mImageViews[position % mImageViews.length]);
         }
     }
+
 
 }

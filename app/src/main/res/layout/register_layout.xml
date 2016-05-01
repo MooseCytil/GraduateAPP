@@ -2,25 +2,12 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#b2dfdb"
+    android:background="@color/colorPrimary"
     android:focusable="true"
     android:focusableInTouchMode="true">
 
     <include layout="@layout/toolbar_layout"
         android:id="@+id/toolbar_register"/>
-
-    <!--<android.support.v7.widget.AppCompatTextView-->
-        <!--android:id="@+id/text1"-->
-        <!--android:layout_width="wrap_content"-->
-        <!--android:layout_height="wrap_content"-->
-        <!--android:text="FJH and XQ"-->
-        <!--android:textColor="@color/cardBackgroundColor"-->
-        <!--android:textSize="50dp"-->
-        <!--android:layout_marginTop="70dp"-->
-        <!--android:layout_centerHorizontal="true"/>-->
-
-
-
 
     <android.support.v7.widget.AppCompatTextView
         android:id="@+id/text_login"
@@ -29,6 +16,7 @@
         android:clickable="true"
         android:text="立即登录"
         android:textSize="20dp"
+        android:textColor="@color/textColorPrimary"
         android:layout_above="@id/linear1"
         android:layout_alignRight="@id/linear1"/>
 
@@ -55,6 +43,7 @@
                 android:layout_height="wrap_content"
                 android:paddingLeft="10dp" >
                 <android.support.v7.widget.AppCompatEditText
+                    android:id="@+id/edittext_regis_email"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="电子邮件地址"
@@ -78,6 +67,7 @@
                 android:layout_height="wrap_content"
                 android:paddingLeft="10dp">
                 <android.support.v7.widget.AppCompatEditText
+                    android:id="@+id/edittext_regis_pwd"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="6~10位字符"
@@ -100,6 +90,7 @@
                 android:layout_height="wrap_content"
                 android:paddingLeft="10dp">
                 <android.support.v7.widget.AppCompatEditText
+                    android:id="@+id/edittext_regis_username"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="请输入您的姓名"
@@ -122,6 +113,7 @@
                 android:layout_height="wrap_content"
                 android:paddingLeft="10dp">
                 <android.support.v7.widget.AppCompatEditText
+                    android:id="@+id/edittext_regis_phone"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="请输入您的电话"

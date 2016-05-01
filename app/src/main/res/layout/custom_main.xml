@@ -2,7 +2,7 @@
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:fitsSystemWindows="true">
 
     <!--所有layout的头部,使用Coordinatorlayout-->
@@ -12,9 +12,8 @@
     <!--behavior设置显示在appbar下方-->
     <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
-
         <!-- 切换卡 -->
         <android.support.v4.view.ViewPager
             android:id="@+id/viewpager_main"
@@ -39,6 +38,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center_horizontal|center_vertical"/>
     </FrameLayout>
+
 
     <!--向上滑动时，收起toolbar，behavior设置显示在appbar下方-->
     <!--<android.support.v7.widget.RecyclerView-->

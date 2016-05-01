@@ -40,7 +40,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:showDividers="middle"
-            android:divider="@drawable/divider_shape">
+            android:divider="@drawable/divider_vertical_shape">
 
             <LinearLayout
                 android:layout_width="match_parent"

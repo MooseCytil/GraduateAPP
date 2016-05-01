@@ -1,6 +1,5 @@
 package com.fjh.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
@@ -34,7 +33,6 @@ public class BookingActivity extends AppCompatActivity {
         setContentView(R.layout.hotel_layout);
         mViewPager = (ViewPager) findViewById(R.id.image_room);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-        textView_title = (AppCompatTextView) findViewById(R.id.text_title);
 
         toolbar.setNavigationIcon(R.drawable.left_24);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -43,14 +41,6 @@ public class BookingActivity extends AppCompatActivity {
 //                Intent intent = new Intent(LoginActivity.this, MainActivity.class);
 //                startActivity(intent);
                 onBackPressed();
-            }
-        });
-
-        textView_title.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(BookingActivity.this, MainActivity.class);
-                startActivity(intent);
             }
         });
 

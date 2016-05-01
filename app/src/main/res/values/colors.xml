@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#F44336</color>
+    <color name="colorPrimary">#263238</color>
     <color name="colorPrimaryDark">#D32F2F</color>
     <color name="colorAccent">#795548</color>
-    <color name="textColorPrimary">#212121</color>
+    <color name="textColorPrimary">#FFFFFF</color>
     
-    <color name="cardBackgroundColor">#FFFFFF</color>
+    <color name="cardBGColor">#FFFFFF</color>
+    <color name="mainSearchViewBGColor">#efebe9</color>
+    <color name="mainCardBGColor">#FFFFFF</color>
+    <color name="mainButtonBGColor">#29b6f6</color>
 </resources>

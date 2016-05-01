@@ -2,12 +2,12 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#b2dfdb"
     android:focusable="true"
-    android:focusableInTouchMode="true">
+    android:focusableInTouchMode="true"
+    android:background="@color/colorPrimary">
 
-    <include layout="@layout/toolbar_layout"/>
-
+    <include layout="@layout/toolbar_layout"
+        android:id="@+id/toolbar_login"/>
 
         <!--<android.support.v7.widget.AppCompatTextView-->
             <!--android:id="@+id/text_app"-->
@@ -23,7 +23,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:orientation="vertical"
-        android:layout_centerInParent="true">
+        android:layout_below="@id/toolbar_login"
+        android:layout_centerHorizontal="true">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -40,8 +41,10 @@
                 android:layout_width="250dp"
                 android:layout_height="wrap_content">
                 <android.support.v7.widget.AppCompatEditText
+                    android:id="@+id/edittext_username"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:textColorHint="@color/textColorPrimary"
                     android:hint="请输入用户名"
                     android:inputType="textEmailAddress"/>
             </android.support.design.widget.TextInputLayout>
@@ -62,36 +65,49 @@
                 android:layout_width="250dp"
                 android:layout_height="wrap_content" >
                 <android.support.v7.widget.AppCompatEditText
+                    android:id="@+id/edittext_pwd"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:hint="请输入密码"
-                    android:inputType="textPassword"/>
+                    android:inputType="textPassword"
+                    android:textColorHint="@color/textColorPrimary"/>
             </android.support.design.widget.TextInputLayout>
         </LinearLayout>
-
-        <android.support.v7.widget.AppCompatButton
-            android:id="@+id/button_login"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="登录" />
-
     </LinearLayout>
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fButton_register"
-        android:layout_width="wrap_content"
+    <android.support.v7.widget.AppCompatButton
+        android:id="@+id/button_login"
+        android:layout_width="120dp"
         android:layout_height="wrap_content"
+        android:text="登录"
+        android:textSize="20dp"
+        android:textColor="@color/textColorPrimary"
+        android:background="@drawable/button_shape"
         android:layout_below="@id/linear1"
-        android:src="@drawable/adduser_48"/>
+        android:layout_marginTop="20dp"
+        android:layout_centerHorizontal="true"/>
 
     <android.support.v7.widget.AppCompatTextView
         android:id="@+id/text_pwd"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="忘记密码？"
-        android:layout_below="@id/linear1"
+        android:textColor="@color/textColorPrimary"
+        android:layout_below="@id/button_login"
         android:textSize="20dp"
         android:paddingTop="20dp"
+        android:layout_centerHorizontal="true"
+        android:clickable="true"/>
+
+    <android.support.v7.widget.AppCompatTextView
+        android:id="@+id/text_register"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="注册新用户"
+        android:textColor="@color/textColorPrimary"
+        android:layout_below="@id/text_pwd"
+        android:textSize="20dp"
+        android:paddingTop="10dp"
         android:layout_centerHorizontal="true"
         android:clickable="true"/>
 

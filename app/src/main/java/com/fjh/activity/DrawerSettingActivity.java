@@ -1,6 +1,5 @@
 package com.fjh.activity;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatTextView;
@@ -21,7 +20,6 @@ public class DrawerSettingActivity extends AppCompatActivity {
         setContentView(R.layout.drawer_setting_layout);
 
         toolbar = (Toolbar) findViewById(R.id.toolbar);
-        textView_title = (AppCompatTextView) findViewById(R.id.text_title);
 
         toolbar.setNavigationIcon(R.drawable.left_24);
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
@@ -33,12 +31,5 @@ public class DrawerSettingActivity extends AppCompatActivity {
             }
         });
 
-        textView_title.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(DrawerSettingActivity.this, MainActivity.class);
-                startActivity(intent);
-            }
-        });
     }
 }

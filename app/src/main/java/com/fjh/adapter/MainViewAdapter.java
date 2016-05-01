@@ -1,4 +1,4 @@
-package com.fjh.util.adapter;
+package com.fjh.adapter;
 
 /**
  * 用于首页图片轮播

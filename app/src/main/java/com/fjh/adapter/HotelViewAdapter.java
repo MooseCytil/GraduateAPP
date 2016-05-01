@@ -1,4 +1,4 @@
-package com.fjh.util.adapter;
+package com.fjh.adapter;
 
 /**
  * 用于显示酒店详情的图片
