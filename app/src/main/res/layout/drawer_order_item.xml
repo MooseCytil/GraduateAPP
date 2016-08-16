@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/linear_order"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/text_order_time"
+        android:focusable="false"
+        android:text="orderTime"
+        android:gravity="center"
+        android:padding="15sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+    <TextView
+        android:id="@+id/text_order_hotelname"
+        android:focusable="false"
+        android:text="orderHotel"
+        android:gravity="center"
+        android:padding="15sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>

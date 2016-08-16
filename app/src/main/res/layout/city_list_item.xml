@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <!--<android.support.v7.widget.AppCompatTextView-->
+        <!--android:id="@+id/text_city"-->
+        <!--android:gravity="center"-->
+        <!--android:focusable="false"-->
+        <!--android:layout_gravity="center"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="50dp"-->
+        <!--android:clickable="true"/>-->
+
+    <TextView
+        android:id="@+id/text_city"
+        android:focusable="false"
+        android:text="cityName"
+        android:gravity="center"
+        android:padding="15sp"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+</LinearLayout>

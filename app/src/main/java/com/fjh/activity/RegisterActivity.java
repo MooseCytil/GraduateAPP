@@ -1,8 +1,6 @@
 package com.fjh.activity;
 
-import android.content.ContentValues;
 import android.content.Intent;
-import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
@@ -15,7 +13,8 @@ import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
 
-import com.fjh.db.DataBaseHelper;
+import cn.bmob.v3.BmobUser;
+import cn.bmob.v3.listener.SaveListener;
 
 /**
  * Created by fjh
@@ -54,6 +53,64 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
 
+        editText_email.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    if (editText_email.getText().toString().trim().length() < 6) {
+                        Toast.makeText(getApplicationContext(), "邮箱地址太短", Toast.LENGTH_SHORT).show();
+                    } else if (editText_email.getText().toString().trim().length() == 0) {
+                        Toast.makeText(getApplicationContext(), "邮箱不能为空", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+        });
+        editText_pwd.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus)
+                {
+                    if (editText_pwd.getText().toString().trim().length() < 6)
+                    {
+                        Toast.makeText(getApplicationContext(), "密码过短", Toast.LENGTH_SHORT).show();
+                    }
+                    else if (editText_pwd.getText().toString().trim().length() > 10)
+                    {
+                        Toast.makeText(getApplicationContext(), "密码过长", Toast.LENGTH_SHORT).show();
+                    }
+                    else if (editText_pwd.getText().toString().trim().length() == 0)
+                    {
+                        Toast.makeText(getApplicationContext(), "密码不能为空", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+        });
+        editText_username.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus)
+                {
+                    if (editText_username.getText().toString().trim().length() == 0)
+                    {
+                        Toast.makeText(getApplicationContext(), "用户名不能为空", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+        });
+        editText_phone.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus)
+                {
+                    if (editText_phone.getText().toString().trim().length() == 0)
+                    {
+                        Toast.makeText(getApplicationContext(), "手机号不能为空", Toast.LENGTH_SHORT).show();
+                    }
+                }
+            }
+        });
+
+        //“立即登录”按钮
         text_login.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -62,38 +119,34 @@ public class RegisterActivity extends AppCompatActivity {
             }
         });
 
+        //注册按钮
         button_register.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                String phone = editText_phone.getText().toString();
-                String email = editText_email.getText().toString();
-                String pwd = editText_pwd.getText().toString();
-                String username = editText_username.getText().toString();
-
-                ContentValues cv = new ContentValues();
-                cv.put("email", email);
-                cv.put("password", pwd);
-
-                //创建了一个DatabaseHelper对象，只执行这句话是不会创建或打开连接的
-                DataBaseHelper dataBaseHelper = new DataBaseHelper(RegisterActivity.this);
-                //只有调用了DatabaseHelper的getWritableDatabase()方法或者getReadableDatabase()方法之后，才会创建或打开一个连接
-                SQLiteDatabase sqLiteDatabase = dataBaseHelper.getWritableDatabase();
-                // 调用insert方法，就可以将数据插入到数据库当中
-                // 第一个参数:表名称
-                // 第二个参数：SQl不允许一个空列，如果ContentValues是空的，那么这一列被明确的指明为NULL值
-                // 第三个参数：ContentValues对象
-                sqLiteDatabase.insert("user", null, cv);
-                System.out.print("email为:" + email + ",密码为:" + pwd);
-
-                Toast.makeText(getApplicationContext(), "注册成功，正在跳转", Toast.LENGTH_SHORT ).show();
-                new Handler().postDelayed(new Runnable() {
+                BmobUser bmobUser = new BmobUser();
+                bmobUser.setUsername(editText_username.getText().toString());
+                bmobUser.setPassword(editText_pwd.getText().toString());
+                bmobUser.setEmail(editText_email.getText().toString());
+                bmobUser.setMobilePhoneNumber(editText_phone.getText().toString());
+                bmobUser.signUp(getApplicationContext(), new SaveListener() {
                     @Override
-                    public void run() {
-                        Intent intent = new Intent(RegisterActivity.this, LoginActivity.class);
-                        startActivity(intent);
+                    public void onSuccess() {
+                        Toast.makeText(getApplicationContext(), "注册成功,正在跳转", Toast.LENGTH_LONG).show();
+                        //将登录信息保存至首页
+                        new Handler().postDelayed(new Runnable() {
+                            @Override
+                            public void run() {
+                                BmobUser.getCurrentUser(getApplicationContext()); //缓存的user对象
+                                Intent registerIntent = new Intent(RegisterActivity.this, MainActivity.class);
+                                startActivity(registerIntent);
+                            }
+                        }, 2000);
                     }
-                }, 2000);
-
+                    @Override
+                    public void onFailure(int i, String s) {
+                        Toast.makeText(getApplicationContext(), s, Toast.LENGTH_LONG).show();
+                    }
+                });
             }
         });
 

@@ -16,8 +16,8 @@
         android:layout_width="match_parent"
         android:layout_height="150dp"
         android:paddingTop="5dp"
-        android:text="系统介绍"
-        android:textSize="50dp"/>
+        android:text="    这是一款用于酒店搜索、酒店预订的APP，能帮助您快速进行酒店的搜索以及预订。"
+        android:textSize="30dp"/>
 
     <RelativeLayout
         android:layout_width="match_parent"

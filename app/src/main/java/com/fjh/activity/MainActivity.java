@@ -13,6 +13,7 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.AppCompatButton;
 import android.support.v7.widget.AppCompatTextView;
 import android.support.v7.widget.CardView;
+import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
@@ -22,6 +23,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import java.util.Calendar;
+
+import cn.bmob.v3.Bmob;
 
 /**
  * 显示首页信息
@@ -43,6 +46,8 @@ public class MainActivity extends AppCompatActivity {
     private AppCompatTextView textCheckout; //显示退房日期
     private AppCompatButton buttonSearch;  //主页搜索按钮
     private AppCompatTextView drawer_text_username; //侧滑菜单的用户信息
+    private AppCompatTextView drawer_text_useremail; //侧滑菜单的用户邮箱
+    private RecyclerView recyclerView_city;
     private Calendar calendar; //通过Calendar获取系统时间
     private ImageView image; //drawerlayout的头像按钮
     private ImageView[] tips; //装圆点的ImageView数组
@@ -54,6 +59,8 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.main); //给当前activity引入的布局文件
+        //初始化Bmob
+        Bmob.initialize(this, "238578f160c545bed74ede6b42d5bbf4");
 
         final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -71,6 +78,8 @@ public class MainActivity extends AppCompatActivity {
         textCheckin = (AppCompatTextView) findViewById(R.id.text_checkin);
         textCheckout = (AppCompatTextView) findViewById(R.id.text_checkout);
         drawer_text_username = (AppCompatTextView) findViewById(R.id.drawer_text_username);
+        drawer_text_useremail = (AppCompatTextView) findViewById(R.id.drawer_text_email);
+        recyclerView_city = (RecyclerView) findViewById(R.id.recycler_city);
 
         calendar = Calendar.getInstance(); // 获取日历对象
 
@@ -91,20 +100,15 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public boolean onNavigationItemSelected(MenuItem menuItem) {
                         switch (menuItem.getItemId()) {
-                            case R.id.nav_reserved:
-                                Intent intent1 = new Intent(MainActivity.this, BookingActivity.class);
-                                startActivity(intent1);
-//                                toolbar.setTitle("即将开始的旅程"); //设置toolbar的title
-                                break;
-                            case R.id.nav_history:
-                                Intent intent2 = new Intent(MainActivity.this, DrawerHistoryActivity.class);
+                            case R.id.nav_order:
+                                Intent intent2 = new Intent(MainActivity.this, DrawerOrderActivity.class);
                                 startActivity(intent2);
-//                                toolbar.setTitle("历史订单");
+                                toolbar.setTitle("您的订单");
                                 break;
                             case R.id.nav_setting:
                                 Intent intent3 = new Intent(MainActivity.this, DrawerSettingActivity.class);
                                 startActivity(intent3);
-//                                toolbar.setTitle("系统设置");
+                                toolbar.setTitle("系统设置");
                                 break;
                             case R.id.nav_more:
                                 Intent intent4 = new Intent(MainActivity.this, DrawerMoreActivity.class);
@@ -128,15 +132,14 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        //日期时间，用于入住日期及退房日期
         final int mYear, mMonth, mDay, mOutDay;
         mYear = calendar.get(Calendar.YEAR);
         mMonth = calendar.get(Calendar.MONTH) + 1;
         mDay = calendar.get(Calendar.DAY_OF_MONTH);
         mOutDay = calendar.get(Calendar.DAY_OF_MONTH) + 1;
-
         textCheckin.setText(mYear + "年" + mMonth + "月" + mDay + "日");
         textCheckout.setText(mYear + "年" + mMonth + "月" + mOutDay + "日");
-
 //        cardCheckin.setOnFocusChangeListener(new View.OnFocusChangeListener() {
 //            @Override
 //            public void onFocusChange(View v, boolean hasFocus) {
@@ -162,8 +165,6 @@ public class MainActivity extends AppCompatActivity {
                 }, calendar.get(Calendar.YEAR), calendar.get(Calendar.MONTH), calendar.get(Calendar.DAY_OF_MONTH)).show();
             }
         });
-
-
 //        cardCheckout.setOnFocusChangeListener(new View.OnFocusChangeListener() {
 //            @Override
 //            public void onFocusChange(View v, boolean hasFocus) {
@@ -190,10 +191,18 @@ public class MainActivity extends AppCompatActivity {
             }
         });
 
+        //定位信息
+        locationLinearLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, CityListActivity.class);
+                startActivity(intent);
+            }
+        });
 
+        //背景图片
         initImage();
         initTips();
-
         /**
          * 设置监听，主要是设置圆点的背景
          */
@@ -214,12 +223,16 @@ public class MainActivity extends AppCompatActivity {
 
             }
         });
-
         mViewPager.setAdapter(new MainViewAdapter());
 
-//        mRecyclerView.setLayoutManager(new LinearLayoutManager(mRecyclerView.getContext()));
-//        mRecyclerView.setAdapter(new RecyclerCardAdapter(getApplicationContext()));
-//        mRecyclerView.setItemAnimator(new DefaultItemAnimator());
+        //"搜索按钮"
+        buttonSearch.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(MainActivity.this, HotelInfoActivity.class);
+                startActivity(intent);
+            }
+        });
 
     }
 
@@ -249,14 +262,16 @@ public class MainActivity extends AppCompatActivity {
             switch (resultCode)
             {
                 case LoginActivity.user_result_code:
-                    String username = data.getExtras().getString("username");
+                  //  User userLogin = (User)data.getSerializableExtra("user");
+                    String username = data.getStringExtra("username");
+                    String useremail = data.getStringExtra("useremail");
                     drawer_text_username.setText(username);
+                    drawer_text_useremail.setText(useremail);
                     break;
                 default:
                     break;
             }
         }
-
         super.onActivityResult(requestCode, resultCode, data);
     }
 
@@ -272,7 +287,6 @@ public class MainActivity extends AppCompatActivity {
             ImageView image = new ImageView(getApplicationContext());
             mImageViews[i] = image;
             image.setBackgroundResource(src[i]);
-
         }
     }
 
