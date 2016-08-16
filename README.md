@@ -9,5 +9,9 @@
 ### V0.0.3
 每一个view都使用toolbar，toolbar有返回功能。消除输入文本时，软键盘会挡住控件的bug。
 ### V1.0.0
+<<<<<<< HEAD
 使用基于sqlite的登录验证
 
+=======
+基于sqlite的登录验证
+>>>>>>> origin/master
