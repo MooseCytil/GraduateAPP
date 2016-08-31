@@ -33,7 +33,7 @@ public class HotelListActivity extends AppCompatActivity {
         setContentView(R.layout.activity_hotel_list_activty);
         toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setNavigationIcon(R.drawable.left_24);
-        toolbar.setTitle("上海市酒店");
+        toolbar.setTitle("酒店列表");
         toolbar.setNavigationOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

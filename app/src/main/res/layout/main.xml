@@ -14,6 +14,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="left"
+        android:background="#FFB5C5"
         navigation:popupTheme="@style/AppTheme.PopupOverlay"
         navigation:headerLayout="@layout/drawer_head"
         navigation:menu="@menu/drawer_menu">
